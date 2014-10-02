@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>Remote</title>
+<script type="text/javascript" src="remote.js">
+	
+</script>
+<style type='text/css'>
+div {
+	border: 0px solid black;
+}
+
+div#chat {
+	clear: both;
+	width: 40em;
+	height: 20ex;
+	overflow: auto;
+	background-color: #f0f0f0;
+	padding: 4px;
+	border: 1px solid black;
+}
+
+div#inputt {
+	clear: both;
+	width: 40em;
+	padding: 4px;
+	background-color: #e0e0e0;
+	border: 1px solid black;
+	border-top: 0px
+}
+
+input#phrase {
+	width: 100%;
+	background-color: #e0f0f0;
+}
+
+input#joinB {
+	width: 100%;
+	height: 100%;
+	background-color: #e0f0f0;
+}
+
+input#username {
+	width: 14em;
+	background-color: #e0f0f0;
+}
+
+div.hidden {
+	display: none;
+}
+
+span.from {
+	font-weight: bold;
+}
+</style>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+</head>
+<body>
+	<div id="chat" class="hidden"></div>
+	<div id="input">
+		<div id="join">
+
+
+			<input id="joinB" class="button" type="submit" name="join"
+				value="Connect" />
+		</div>
+		<div id="joined" class="hiddenn">
+			<input id="phrase" type="text" autocorrect="off" autocapitalize="off"
+				autocapitalization="off" />
+		</div>
+	</div>
+	<p>Use the box to type. Tap here to control the mouse. Two finger
+		tap for right click. Two finger drag to scroll.
+	<p>
+		Not every key works, and the standard keyboard also lacks some keys.
+		We will allow the user to create some custom keys here, but Java
+		cannot do certain keys.
+
+		<script type="text/javascript">	
+
+		// "Join" button click opens Chat WebSockets
+		$('joinB').onclick = function(event) {
+			room.join();
+				$('phrase').focus();
+		document.body.addEventListener("touchstart", touchStart, false);
+			document.body.addEventListener("touchmove", touchMove, false);
+					document.body.addEventListener("touchend", touchEnd, false);
+				
+			return false;
+		};
+		
+		// 2) When user is connected, 'phrase' div is displayed with Chat input + Send button		
+		$('phrase').setAttribute('autocomplete', 'OFF');
+		// Enter in the 'phrase' field send the message
+	//	$('phrase').onkeyup = function(ev) {
+	//		var keyc = getKeyCode(ev);
+	//		if (keyc == 13 || keyc == 10) {
+	//			room.chat($F('phrase'));
+	//			$('phrase').value = '';
+	//			return false;
+	//		}
+	//		return true;
+	//	};
+	
+		
+		$('phrase').onkeypress = function(ev) {
+			var keyc = ev.which; //getKeyCode(ev);
+			var c = String.fromCharCode(keyc);
+			room.chat("key "+c);
+			return true;
+		};
+		
+			$('phrase').onkeyup = function(ev) {		
+			
+			room.chat("c2 "+ev.keyCode);
+			if(ev.keyCode==8){
+				room.chat("backspace");
+			}
+			if(ev.keyCode==13){
+				room.chat("return");
+			}
+			
+			return true;
+		};
+		
+	//	document.body.addEventListener("touchstart", touchStart, false);
+//element.addEventListener("touchmove", touchMove, false);
+//element.addEventListener("touchend", touchEnd, false);
+//element.addEventListener("touchcancel", touchCancel, false);
+		
+	</script>
+</body>
+</html>
