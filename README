@@ -6,9 +6,10 @@ Web app to remote control a PC using a mobile device.  Replaces your keyboard an
 Instructions
 ============
 
-* Install Java.
-* Download and unzip https://bitbucket.org/richardsmith/roger-remote/downloads/roger.zip
-* Double click roger.jar.
+* Install Java from https://java.com/download
+* Download and extract ALL files from https://bitbucket.org/richardsmith/roger-remote/downloads/roger.zip
+* Double click roger.exe (Windows) or roger.jar (other platforms).
+* If prompted, allow access through firewall.
 * Click 'start server'.
 * Follow on screen instruction.
 
