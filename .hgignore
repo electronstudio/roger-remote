@@ -1,0 +1,8 @@
+.apt_generated/
+.git
+gen/
+bin/
+bmp/
+jpg/
+.DS_Store
+dist/
