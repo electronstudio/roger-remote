@@ -66,16 +66,15 @@ span.from {
 				value="Connect" />
 		</div>
 		<div id="joined" class="hiddenn">
-			<input id="phrase" type="text" autocorrect="off" autocapitalize="off"
+			<input style="height:50px;" id="phrase" type="text" autocorrect="off" autocapitalize="off"
 				autocapitalization="off" />
 		</div>
 	</div>
-	<p>Use the box to type. Tap here to control the mouse. Two finger
+	<p>1. Tap the box above to type.
+	<p>2. Tap anywhere else to control the mouse. Two finger
 		tap for right click. Two finger drag to scroll.
-	<p>
-		Not every key works, and the standard keyboard also lacks some keys.
-		We will allow the user to create some custom keys here, but Java
-		cannot do certain keys.
+	
+		
 
 		<script type="text/javascript">	
 
@@ -104,21 +103,26 @@ span.from {
 	//	};
 	
 		
-		$('phrase').onkeypress = function(ev) {
-			var keyc = ev.which; //getKeyCode(ev);
-			var c = String.fromCharCode(keyc);
-			room.chat("key "+c);
-			return true;
-		};
+	//	$('phrase').onkeypress = function(ev) {
+	//		var keyc = ev.which; //getKeyCode(ev);
+	//		var c = String.fromCharCode(keyc);
+	//		room.chat("key "+c);
+	//		return true;
+	//	};
 		
 			$('phrase').onkeyup = function(ev) {		
-			
-			room.chat("c2 "+ev.keyCode);
+				//	var keyc = ev.which; //getKeyCode(ev);
+			//var c = String.fromCharCode(keyc);
+	
 			if(ev.keyCode==8){
 				room.chat("backspace");
 			}
-			if(ev.keyCode==13){
+			else if(ev.keyCode==13){
 				room.chat("return");
+			}else{
+					var s = document.getElementById ( "phrase" ).value;
+			var c = s.substr(s.length - 1);
+			room.chat("char "+c);
 			}
 			
 			return true;

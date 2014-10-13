@@ -2,7 +2,6 @@ package org.samples.websockets.embeddingjetty;
 
 import java.awt.AWTException;
 import java.awt.MouseInfo;
-import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -47,62 +46,58 @@ public class ChatWebSocketHandler extends WebSocketHandler {
 
 		public void onMessage(String data) {
 			System.out.println(data);
-			if (data.startsWith("key")) {
-				String s = data.substring(4);
-				try{
-				keyboard.type(s);
-				}catch (IllegalArgumentException e){
+			if (data.startsWith("char")) {
+				String s = data.substring(5);
+				try {
+					keyboard.type(s);
+				} catch (IllegalArgumentException e) {
 					System.out.println(e);
 				}
-			}
-			else if(data.startsWith("backspace")){
+			} else if (data.startsWith("backspace")) {
 				keyboard.doType(KeyEvent.VK_BACK_SPACE);
-			}
-			else if(data.startsWith("return")){
+			} else if (data.startsWith("return")) {
 				keyboard.doType(KeyEvent.VK_ENTER);
-			}
-			else if(data.startsWith("touch")){
+			} else if (data.startsWith("touch")) {
 				String s[] = data.split(" ");
-				int x = Integer.parseInt(s[1]);
-				int y = Integer.parseInt(s[2]);
-				x=x*2;
-				y=y*2;
-				if(x>4 || x<-4){
-					x=x*2;
+				double x = Double.parseDouble(s[1]);
+				double y = Double.parseDouble(s[2]);
+				x = x * 2;
+				y = y * 2;
+				if (x > 4 || x < -4) {
+					x = x * 2;
 				}
-				if(y>4 || y<-4){
-					y=y*2;
+				if (y > 4 || y < -4) {
+					y = y * 2;
 				}
-				keyboard.robot.mouseMove(MouseInfo.getPointerInfo().getLocation().x+x,
-						MouseInfo.getPointerInfo().getLocation().y+y);
-			}	else if(data.startsWith("leftclick")){		
+				keyboard.robot.mouseMove(MouseInfo.getPointerInfo()
+						.getLocation().x + (int) x, MouseInfo.getPointerInfo()
+						.getLocation().y + (int) y);
+			} else if (data.startsWith("leftclick")) {
 				keyboard.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 				keyboard.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-			}else if(data.startsWith("rightclick")){		
+			} else if (data.startsWith("rightclick")) {
 				keyboard.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 				keyboard.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-			}	else if(data.startsWith("drag")){
+			} else if (data.startsWith("drag")) {
 				String s[] = data.split(" ");
-				int x = Integer.parseInt(s[1]);
-				int y = Integer.parseInt(s[2]);
-			//	x=x*2;
-			//	y=y*2;
-				if(x>6 || x<-6){
-					x=x*2;
+				double x = Integer.parseInt(s[1]);
+				double y = Integer.parseInt(s[2]);
+				// x=x*2;
+				// y=y*2;
+				if (x > 6 || x < -6) {
+					x = x * 2;
 				}
-				if(y>6 || y<-6){
-					y=y*2;
+				if (y > 6 || y < -6) {
+					y = y * 2;
 				}
-				keyboard.robot.mouseWheel(y);
+				keyboard.robot.mouseWheel((int) y);
 			}
-			
-			
-			/*if (data.startsWith("key")) {
-				Integer keycode = new Integer(data.substring(4));
-				System.out.println(keycode);
-				robot.keyPress(keycode);
-				robot.keyRelease(keycode);
-			}*/
+
+			/*
+			 * if (data.startsWith("key")) { Integer keycode = new
+			 * Integer(data.substring(4)); System.out.println(keycode);
+			 * robot.keyPress(keycode); robot.keyRelease(keycode); }
+			 */
 			// robot.mouseMove(50, 50);
 			// Loop for each instance of ChatWebSocket to send message server to
 			// each client WebSockets.
