@@ -1,20 +1,20 @@
-package org.samples.websockets.embeddingjetty;
+package uk.me.fantastic.remote;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.URL;
 import java.util.Enumeration;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+
+import com.esotericsoftware.minlog.Log;
 
 public class ChatWebSocketServer {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println("\n********************************");
-			System.out.println("On your remote device, browse to");
+			Log.warn("********************************");
+			Log.warn("On your remote device, browse to");
 			// 1) Create a Jetty server with the 8091 port.
 			Enumeration<NetworkInterface> interfaces = NetworkInterface
 					.getNetworkInterfaces();
@@ -28,12 +28,11 @@ public class ChatWebSocketServer {
 					InetAddress current_addr = addresses.nextElement();
 					if (current_addr.isLoopbackAddress())
 						continue;
-					System.out
-							.println("http://"
-									+ current_addr.getHostAddress() + ":8081");
+					Log.warn("http://" + current_addr.getHostAddress()
+							+ ":8081");
 				}
 			}
-			System.out.println("********************************\n\n");
+			Log.warn("********************************\n\n");
 			Server server = new Server(8081);
 			// 2) Register ChatWebSocketHandler in the Jetty server instance.
 			ChatWebSocketHandler chatWebSocketHandler = new ChatWebSocketHandler();
@@ -42,11 +41,11 @@ public class ChatWebSocketServer {
 			resource_handler.setDirectoriesListed(true);
 			resource_handler.setWelcomeFiles(new String[] { "chat.html" });
 
-		//	new java.net.URL(
-			
-		//	URL url	=	ChatWebSocketServer.class.getResource("chat.html");
-		//			System.out.println("RB "+url.getPath());
-		//	resource_handler.setResourceBase(url.getPath());
+			// new java.net.URL(
+
+			// URL url = ChatWebSocketServer.class.getResource("chat.html");
+			// System.out.println("RB "+url.getPath());
+			// resource_handler.setResourceBase(url.getPath());
 			resource_handler.setResourceBase(".");
 
 			// HandlerList handlers = new HandlerList();
@@ -64,5 +63,14 @@ public class ChatWebSocketServer {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void start() {
+		new Thread() {
+			public void run() {
+				main(null);
+			}
+		}.start();
+
 	}
 }

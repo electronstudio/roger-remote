@@ -1,4 +1,4 @@
-package org.samples.websockets.embeddingjetty;
+package uk.me.fantastic.remote;
 
 import java.awt.AWTException;
 import java.awt.MouseInfo;
@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketHandler;
+
+import com.esotericsoftware.minlog.Log;
 
 public class ChatWebSocketHandler extends WebSocketHandler {
 
@@ -42,10 +44,11 @@ public class ChatWebSocketHandler extends WebSocketHandler {
 			// instances
 			// instance.
 			webSockets.add(this);
+			Log.warn("Connected to " + connection);
 		}
 
 		public void onMessage(String data) {
-			System.out.println(data);
+			Log.info(data);
 			if (data.startsWith("char")) {
 				String s = data.substring(5);
 				try {
@@ -80,8 +83,8 @@ public class ChatWebSocketHandler extends WebSocketHandler {
 				keyboard.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
 			} else if (data.startsWith("drag")) {
 				String s[] = data.split(" ");
-				double x = Integer.parseInt(s[1]);
-				double y = Integer.parseInt(s[2]);
+				double x = Double.parseDouble(s[1]);
+				double y = Double.parseDouble(s[2]);
 				// x=x*2;
 				// y=y*2;
 				if (x > 6 || x < -6) {
@@ -117,6 +120,7 @@ public class ChatWebSocketHandler extends WebSocketHandler {
 			// Remove ChatWebSocket in the global list of ChatWebSocket
 			// instance.
 			webSockets.remove(this);
+			Log.warn("disconnected " + message);
 		}
 	}
 }

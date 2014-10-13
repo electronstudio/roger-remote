@@ -1,4 +1,4 @@
-package org.samples.websockets.embeddingjetty;
+package uk.me.fantastic.remote;
 
 import static java.awt.event.KeyEvent.VK_0;
 import static java.awt.event.KeyEvent.VK_1;

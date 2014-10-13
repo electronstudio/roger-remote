@@ -9,5 +9,10 @@
 	<classpathentry kind="lib" path="lib/jetty-server-8.1.10.v20130312.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-util-8.1.10.v20130312.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.10.v20130312.jar"/>
+	<classpathentry kind="lib" path="/DreamServer/libs/kryonet-2.21-all.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/richard/kryonet-2.21/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
