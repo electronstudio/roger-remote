@@ -1,3 +1,21 @@
 Roger Remote
 ============
 
+Web app to remote control a PC using a mobile device.  Replaces your keyboard and mouse with the mobile device.
+
+Instructions
+============
+
+Install Java.
+Download and unzip https://bitbucket.org/richardsmith/roger-remote/downloads/roger.zip
+Double click roger.jar.
+Click 'start server'.
+Follow on screen instruction.
+
+Support
+=======
+
+Server tested on Mac OS X 10.9.  
+Client tested on Android 4.4, iOS 7.1
+
+In theory the server should work on any OS that runs Java, and the client should work on any device that supports HTML5. 
